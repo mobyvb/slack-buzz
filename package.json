@@ -33,7 +33,9 @@
     "express": ">= 3.0.0 < 4.0.0",
     "node-uuid": "latest",
     "googleapis": "latest",
-    "mathjs": ">= 0.16.0"
+    "mathjs": ">= 0.16.0",
+    "wikipedia-js": "latest",
+    "string": "latest"
   },
   "engines": {
     "node": ">= 0.8.x",
