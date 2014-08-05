@@ -10,7 +10,11 @@ module.exports = function(robot) {
         msg.send('unexpected error: %s', err);
         return;
       }
-      if(htmlWikiText) msg.send(S(htmlWikiText).stripTags().s);
+      if(htmlWikiText) {
+        var text = S(htmlWikiText).stripTags().s;
+        var firstParagraph = text.split('\n')[0];
+        msg.send(firstParagraph);
+      }
       else msg.send('no article found');
     });
   });
