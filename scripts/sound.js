@@ -21,7 +21,7 @@ module.exports = function(robot) {
                 body = JSON.parse(body);
                 
                 if (!body.length){
-                    return msg.send("I didn't find any sounds for \""+query+"\"");
+                    return msg.send("I didn't find any sounds for \""+query+"\"...");
                 }
                 msg.send(body[0].permalink_url);
                 return;
