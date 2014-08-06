@@ -2,8 +2,8 @@ var http = require('http');
 
 module.exports = function(robot) {
 
-  robot.respond(/(urbandict)( me)? (.*)/i, function(msg) {
-    var query = msg.match[3];
+  robot.respond(/(?:urbandict)(?: me)? (.*)/i, function(msg) {
+    var query = msg.match[1];
     var options = {
       host: 'api.urbandictionary.com',
       port: 80,
