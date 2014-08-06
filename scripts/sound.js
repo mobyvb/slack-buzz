@@ -7,7 +7,7 @@ module.exports = function(robot) {
         var options = {
             host: 'api.soundcloud.com',
             port: 80,
-            path: '/tracks.json?q=' + query + '&client_id=2cb63ea0eb1310eadd006fad73c68b75'
+            path: '/tracks.json?q=' + query.replace(" ", "%20") + '&client_id=2cb63ea0eb1310eadd006fad73c68b75'
         };
 
         body = "";
