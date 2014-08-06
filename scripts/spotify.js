@@ -23,11 +23,16 @@ module.exports = function(robot) {
         body = JSON.parse(body);
         var songInfo = body.tracks[0];
         
-        var URI = songInfo.href;
-        var parsedURI = URI.replace('spotify:track:', '');
+        if (songInfo != null)
+        {
+          var URI = songInfo.href;
+          var parsedURI = URI.replace('spotify:track:', '');
         
-        var response = 'http://open.spotify.com/track/' + parsedURI;
-        
+          var response = 'http://open.spotify.com/track/' + parsedURI;
+        }
+        else {
+          var response = "I couldn't find a song with the title " + query;
+        }
         msg.send(response);
       });
     }).on('error', function(e) {
