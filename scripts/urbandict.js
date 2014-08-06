@@ -22,10 +22,11 @@ module.exports = function(robot) {
           return msg.send('I didn\'t find a definition for "' + query + '"');
         }
         var definition = body.list[0];
-        var response = definition.word + ':\n';
+        var response = '*' + definition.word + '*' + ':\n';
         response += definition.definition + '\n';
         response += '_' + definition.example + '_\n';
-        response += definition.permalink;
+        response += definition.permalink + '\n';
+        response += 'Definition submitted by ' + definition.author;
         msg.send(response);
       });
     }).on('error', function(e) {
