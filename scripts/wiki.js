@@ -12,8 +12,10 @@ module.exports = function(robot) {
       }
       if(htmlWikiText) {
         var text = S(htmlWikiText).stripTags().s;
-        var firstParagraph = text.split('\n')[0];
-        msg.send(firstParagraph);
+        if(text.search(/(refer|refers) to:/) === -1) {
+          text = text.split('\n')[0];
+        }
+        msg.send(text);
       }
       else msg.send('no article found');
     });
