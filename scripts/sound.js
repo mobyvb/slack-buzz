@@ -23,7 +23,7 @@ module.exports = function(robot) {
                 if (!body.length){
                     return msg.send("I didn't find any sounds for \""+query+"\"...");
                 }
-                msg.send((body[0].permalink_url).replace(/http/, "https"));
+                msg.send(body[0].permalink_url);
                 return;
 
             });
