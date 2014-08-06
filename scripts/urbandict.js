@@ -24,6 +24,7 @@ module.exports = function(robot) {
         var definition = body.list[0];
         var response = '*' + definition.word + '*' + ':\n';
         response += definition.definition + '\n';
+        definition.example = definition.example.replace(/\r\n/g, '_\n_');
         response += '_' + definition.example + '_\n';
         response += definition.permalink + '\n';
         response += 'Definition submitted by ' + definition.author;
