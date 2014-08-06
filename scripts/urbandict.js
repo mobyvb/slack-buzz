@@ -4,6 +4,7 @@ module.exports = function(robot) {
 
   robot.respond(/(urbandict)( me)? (.*)/i, function(msg) {
     var query = msg.match[3];
+    query=query.replace(/\s+/g, "-")
     var options = {
       host: 'api.urbandictionary.com',
       port: 80,
