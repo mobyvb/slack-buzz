@@ -39,7 +39,7 @@ module.exports = function(robot){
               topcomm_title = (topcomm_title.split(" ")[0]).replace(/_/g, "\\_");
               topcomm_desc = result.rss.channel[0].item[1].description[0];
 
-              message = "[*"+post_title+"*]("+post_link+")";
+              message = "*"+post_title+"* ("+post_link+")";
               if(post_desc){
 
                 if(post_desc.split("p>").length > 1) {
@@ -48,10 +48,10 @@ module.exports = function(robot){
                   post_desc = post_desc.split("a href=\"")[3].split("\"")[0];
                 }
 
-                message += "\n_Desc_: "+post_desc;
+                message += "\n*Desc*: _"+post_desc+"_";
               }
-              message += "\nTop Comment by _"+topcomm_title+"_:";
-              message += "\n"+topcomm_desc;
+              message += "\n*Top Comment* by "+topcomm_title+":";
+              message += "\n_"+topcomm_desc+"_";
 
               msg.send(message);
             });
@@ -112,9 +112,9 @@ module.exports = function(robot){
                       return msg.send(err);
                     }
 
-                    message = "[/r/*"+subreddit_title+"*]("+subreddit_link+")";
+                    message = subreddit_link;
                     message += "\n_"+subreddit_desc+"_";
-                    message += "\nTop Post: ["+toppost_name+"]("+toppost_link+")";
+                    message += "\n*Top Post*:\n*"+toppost_name+"* ("+toppost_link+")";
 
                     if(toppost_desc.split("p>").length > 1) {
                       toppost_desc = toppost_desc.split("p>")[1].replace("</", "");
@@ -126,10 +126,10 @@ module.exports = function(robot){
                     topcomm_title = (topcomm_title.split(" ")[0]).replace(/_/g, "\\_");
                     topcomm_desc = result.rss.channel[0].item[1].description[0];
 
-                    message += "\n_Desc_: "+toppost_desc;
-                    message += "\nTop Comment by _"+topcomm_title+"_: ([_all comments_]("+toppost_guid+"))";
-                    message += "\n"+topcomm_desc;
-                    message += "\n";
+                    message += "\n*Desc*: "+toppost_desc;
+                    message += "\n*Top Comment* by "+topcomm_title+":";
+                    message += "\n_"+topcomm_desc+"_";
+                    message += "(_all comments_: "+toppost_guid+")";
 
                     msg.send(message);
                   });
