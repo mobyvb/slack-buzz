@@ -136,7 +136,7 @@ module.exports = function(robot){
                     topcomm_title = (topcomm_title.split(" ")[0]).replace(/_/g, "\\_");
                     topcomm_desc = result.rss.channel[0].item[1].description[0];
 
-                    message += "\n*Desc*:\n> "+toppost_desc;
+                    message += "\n*Desc*:\n> _"+toppost_desc+"_";
                     message += "\n*Top Comment* by "+topcomm_title+":";
                     message += "\n> _"+topcomm_desc+"_";
                     message += "\nall comments: "+toppost_guid+"";
