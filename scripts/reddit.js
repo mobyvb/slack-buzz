@@ -39,7 +39,7 @@ module.exports = function(robot){
               topcomm_title = (topcomm_title.split(" ")[0]).replace(/_/g, "\\_");
               topcomm_desc = result.rss.channel[0].item[1].description[0];
 
-              message = "*"+post_title+"* ("+post_link+")";
+              message = "*"+post_title+"*\n( "+post_link+" )";
               if(post_desc){
 
                 if(post_desc.split("p>").length > 1) {
@@ -48,10 +48,15 @@ module.exports = function(robot){
                   post_desc = post_desc.split("a href=\"")[3].split("\"")[0];
                 }
 
-                message += "\n*Desc*: _"+post_desc+"_";
+                post_desc = post_desc.replace("&quot;", "\"")
+                                      .replace("&nbsp;", " ")
+                                      .replace("<br/>", "\n")
+                                      .replace("&#39;", "\'");
+
+                message += "\n*Desc*:\n> _"+post_desc+"_";
               }
               message += "\n*Top Comment* by "+topcomm_title+":";
-              message += "\n_"+topcomm_desc+"_";
+              message += "\n> _"+topcomm_desc+"_";
 
               msg.send(message);
             });
@@ -114,7 +119,7 @@ module.exports = function(robot){
 
                     message = subreddit_link;
                     message += "\n_"+subreddit_desc+"_";
-                    message += "\n*Top Post*:\n*"+toppost_name+"* ("+toppost_link+")";
+                    message += "\nTop Post: *"+toppost_name+"*\n( "+toppost_link+" )";
 
                     if(toppost_desc.split("p>").length > 1) {
                       toppost_desc = toppost_desc.split("p>")[1].replace("</", "");
@@ -122,14 +127,19 @@ module.exports = function(robot){
                       toppost_desc = toppost_desc.split("a href=\"")[3].split("\"")[0];
                     }
 
+                    toppost_desc = toppost_desc.replace("&quot;", "\"")
+                                          .replace("&nbsp;", " ")
+                                          .replace("<br/>", "\n")
+                                          .replace("&#39;", "\'");
+
                     topcomm_title = result.rss.channel[0].item[1].title[0];
                     topcomm_title = (topcomm_title.split(" ")[0]).replace(/_/g, "\\_");
                     topcomm_desc = result.rss.channel[0].item[1].description[0];
 
-                    message += "\n*Desc*: "+toppost_desc;
+                    message += "\n*Desc*:\n> _"+toppost_desc+"_";
                     message += "\n*Top Comment* by "+topcomm_title+":";
-                    message += "\n_"+topcomm_desc+"_";
-                    message += "(_all comments_: "+toppost_guid+")";
+                    message += "\n> _"+topcomm_desc+"_";
+                    message += "\nall comments: "+toppost_guid+"";
 
                     msg.send(message);
                   });
