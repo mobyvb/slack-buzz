@@ -35,7 +35,8 @@
     "googleapis": "latest",
     "mathjs": ">= 0.16.0",
     "wikipedia-js": "latest",
-    "string": "latest"
+    "string": "latest",
+    "xml2js": "latest"
   },
   "engines": {
     "node": ">= 0.8.x",
