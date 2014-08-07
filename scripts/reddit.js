@@ -2,20 +2,40 @@ var http = require('http');
 var parser = require('xml2js').Parser();
 
 module.exports = function(robot){
-  robot.hear(/(?:\/)(r|u)(?:\/)(.*)(?:\s)?/i, function(msg){
+  robot.hear(/(?:\/)(r|u)(?:\/)(.*)/i, function(msg){
     type = msg.match[1]
     query = msg.match[2];
+
+    if(query.split(" ").length > 1) {
+      searchon = query.split(" ")[1];
+      query = query.split(" ")[0];
+    }else {
+      searchon = "";
+    }
+
+    if((searchon != "") && (["hot",
+                    "new",
+                    "rising",
+                    "controversial",
+                    "top",
+                    "gilded"].indexOf(searchon) != -1)) {
+      addtopath = "/"+searchon;
+      addtoheader = " on "+searchon;
+    }else {
+      addtopath = "";
+      addtoheader = "";
+    }
 
     //is it sub or user?
     if(type == 'r'){
       //is it subreddit or thread?
-      if ((query.split('/').length - 1)){
+      if ((query.split('/').length - 1) > 1){
         //it's a thread
 
         options = {
           host: 'api.reddit.com',
           port: 80,
-          path: "/r/"+query+".xml"
+          path: "/r/"+query+addtopath+".xml"
         };
 
         comm_body = "";
@@ -56,7 +76,7 @@ module.exports = function(robot){
                 message += "\n*Description*:\n> _ "+post_desc+" _";
               }
               message += "\n*Top Comment* by "+topcomm_title+":";
-              message += "\n> _"+topcomm_desc+"_";
+              message += "\n> _ "+topcomm_desc+" _";
 
               msg.send(message);
             });
@@ -70,7 +90,7 @@ module.exports = function(robot){
         options = {
           host: 'api.reddit.com',
           port: 80,
-          path: '/r/'+query+".xml"
+          path: '/r/'+query+addtopath+".xml"
         };
 
         body = "";
@@ -118,8 +138,8 @@ module.exports = function(robot){
                     }
 
                     message = subreddit_link;
-                    message += "\n_"+subreddit_desc+"_";
-                    message += "\nTop Post: *"+toppost_name+"*\n( "+toppost_link+" )";
+                    message += "\n_ "+subreddit_desc+" _";
+                    message += "\nTop Post"+addtoheader+": *"+toppost_name+"*\n( "+toppost_link+" )";
 
                     if(toppost_desc.split("p>").length > 1) {
                       toppost_desc = toppost_desc.split("p>")[1].replace("</", "");
@@ -132,15 +152,19 @@ module.exports = function(robot){
                                           .replace("<br/>", "\n")
                                           .replace("&#39;", "\'");
 
-                    topcomm_title = result.rss.channel[0].item[1].title[0];
-                    topcomm_title = (topcomm_title.split(" ")[0]).replace(/_/g, "\\_");
-                    topcomm_desc = result.rss.channel[0].item[1].description[0];
+                    if(result.rss.channel[0].item[1]){
+                      topcomm_title = result.rss.channel[0].item[1].title[0];
+                      topcomm_title = (topcomm_title.split(" ")[0]).replace(/_/g, "\\_");
+                      topcomm_desc = result.rss.channel[0].item[1].description[0];
 
-                    message += "\n*Description*:\n> _ "+toppost_desc+" _";
-                    message += "\n*Top Comment* by "+topcomm_title+":";
-                    message += "\n> _"+topcomm_desc+"_";
-                    message += "\nall comments: "+toppost_guid+"";
-
+                      message += "\n*Description*:\n> _ "+toppost_desc+" _";
+                      message += "\n*Top Comment* by "+topcomm_title+":";
+                      message += "\n> _ "+topcomm_desc+" _";
+                      message += "\nall comments: "+toppost_guid+"";
+                    }else {
+                      message += "\n*Description*:\n> _ "+toppost_desc+" _";
+                      message += "\n*No Comments*";
+                    }
                     msg.send(message);
                   });
                 });
