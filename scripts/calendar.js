@@ -7,7 +7,7 @@ module.exports = function(robot) {
       msg.send(response);
     });
   });
-  robot.respond(/(when is)( the)? (.*)/i, function(msg) {
+  robot.respond(/(when is|when are)( the)? (.*)/i, function(msg) {
     var query = msg.match[3];
     findEvent(query, function(response) {
       msg.send(response);
@@ -51,6 +51,7 @@ function getEventsNear(date, cb) {
 
 function findEvent(query, cb) {
   query = query.replace(/\W/g, '').toLowerCase();
+  query = query.replace('bday', 'birthday');
   var events = [];
   ical.fromURL(url, {}, function(err, data) {
     for (var k in data) {
@@ -60,6 +61,8 @@ function findEvent(query, cb) {
           var match = false;
           var summary = ev.summary.replace(/\W/g, '').toLowerCase();
           var description = ev.description.replace(/\W/g, '').toLowerCase();
+          summary = summary.replace('bday', 'birthday');
+          description = description.replace('bday', 'birthday');
           if(summary.indexOf(query)!==-1 || description.indexOf(query)!==-1) {
             if(ev.start >= Date.now()) {
               events.push(ev);
