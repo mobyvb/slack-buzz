@@ -36,7 +36,8 @@
     "mathjs": ">= 0.16.0",
     "wikipedia-js": "latest",
     "string": "latest",
-    "xml2js": "latest"
+    "xml2js": "latest",
+    "ical": "latest"
   },
   "engines": {
     "node": ">= 0.8.x",
