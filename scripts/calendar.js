@@ -7,6 +7,12 @@ module.exports = function(robot) {
       msg.send(response);
     });
   });
+  robot.respond(/(when is)( the)? (.*)/i, function(msg) {
+    var query = msg.match[3];
+    findEvent(query, function(response) {
+      msg.send(response);
+    });
+  });
 }
 
 function getEventsNear(date, cb) {
@@ -15,7 +21,6 @@ function getEventsNear(date, cb) {
   date.setDate(date.getDate()+14);
   var endDate = date.getTime();
   ical.fromURL(url, {}, function(err, data) {
-    var counting = false;
     for (var k in data) {
       if (data.hasOwnProperty(k)) {
         var ev = data[k];
@@ -23,6 +28,42 @@ function getEventsNear(date, cb) {
           var d = new Date(ev.start).getTime();
           if(d > startDate && d < endDate) {
             events.push(ev);
+          }
+        }
+      }
+    }
+
+    events.sort(function(a, b) {
+      return a.start - b.start;
+    });
+
+    var responseStr = '';
+    events.forEach(function(event) {
+      var start = (event.start.getMonth()+1) + '/' + event.start.getDate() + '/' + event.start.getFullYear();
+      var end = (event.end.getMonth()+1) + '/' + event.end.getDate() + '/' + event.end.getFullYear();
+      responseStr += '*' + event.summary + ':*\n';
+      responseStr += '_' + start + ' - ' + end + '_\n';
+      responseStr += event.description + '\n\n';
+    });
+    cb(responseStr);
+  });
+}
+
+function findEvent(query, cb) {
+  query = query.replace(/\W/g, '').toLowerCase();
+  var events = [];
+  ical.fromURL(url, {}, function(err, data) {
+    for (var k in data) {
+      if (data.hasOwnProperty(k)) {
+        var ev = data[k];
+        if(ev.summary || ev.description) {
+          var match = false;
+          var summary = ev.summary.replace(/\W/g, '').toLowerCase();
+          var description = ev.description.replace(/\W/g, '').toLowerCase();
+          if(summary.indexOf(query)!==-1 || description.indexOf(query)!==-1) {
+            if(ev.start >= Date.now()) {
+              events.push(ev);
+            }
           }
         }
       }
