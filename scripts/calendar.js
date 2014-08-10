@@ -34,8 +34,8 @@ function getEventsNear(date, cb) {
 
     var responseStr = '';
     events.forEach(function(event) {
-      var start = (event.start.getMonth()+1) + '/' + event.start.getDay() + '/' + event.start.getFullYear();
-      var end = (event.end.getMonth()+1) + '/' + event.end.getDay() + '/' + event.end.getFullYear();
+      var start = (event.start.getMonth()+1) + '/' + event.start.getDate() + '/' + event.start.getFullYear();
+      var end = (event.end.getMonth()+1) + '/' + event.end.getDate() + '/' + event.end.getFullYear();
       responseStr += '*' + event.summary + ':*\n';
       responseStr += '_' + start + ' - ' + end + '_\n';
       responseStr += event.description + '\n\n';
