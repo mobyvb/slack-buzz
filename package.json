@@ -37,7 +37,8 @@
     "wikipedia-js": "latest",
     "string": "latest",
     "xml2js": "latest",
-    "ical": "latest"
+    "ical": "latest",
+    "mongoose": "latest"
   },
   "engines": {
     "node": ">= 0.8.x",
