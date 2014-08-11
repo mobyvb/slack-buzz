@@ -16,7 +16,7 @@ var Movie = mongoose.model('Movie', movieSchema);
 
 module.exports = function(robot) {
   robot.respond(/list movies/i, function(msg) {
-    Movie.find(function(err, movies) {
+    Movie.find().sort({checked: 1}).exec(function(err, movies) {
       if(err) return msg.send(error);
       var response = 'Movie List:\n';
       movies.forEach(function(movie) {
