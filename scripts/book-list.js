@@ -1,3 +1,13 @@
+// Description:
+//   Commands for book list
+//
+// Commands:
+//   hubot list books - prints out a list of books that have been added to the list
+//   hubot add book <book> - adds a book to the list
+//   hubot remove book <book> - removes a book from the list
+//   hubot check book <book> - checks book off the list
+//   hubot uncheck book <book> - unchecks book
+
 var mongoose = require('mongoose');
 var uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/test';
 mongoose.connect(uristring);
