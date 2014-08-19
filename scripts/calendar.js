@@ -1,3 +1,10 @@
+// Description:
+//   Commands for calendar
+//
+// Commands:
+//   hubot upcoming events - prints out a list of events for the next two weeks
+//   hubot when is <event> - finds an event that matches the query and prints that event
+
 var ical = require('ical');
 var url = 'https://www.google.com/calendar/ical/p1cujmvr6fqk5pfcgkiihpaldo%40group.calendar.google.com/public/basic.ics';
 

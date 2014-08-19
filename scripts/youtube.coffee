@@ -2,7 +2,9 @@
 #   Messing around with the YouTube API.
 #
 # Commands:
-#   hubot youtube me <query> - Searches YouTube for the query and returns the video embed link.
+#   hubot youtube me <query> - Searches YouTube for the query and returns the top video embed link.
+#   hubot youtube me random <query> - Searches YouTube for the query and returns a random video embed link.
+
 module.exports = (robot) ->
   robot.respond /(youtube|yt)( me)?( random)? (.*)/i, (msg) ->
     random = false

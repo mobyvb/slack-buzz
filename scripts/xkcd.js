@@ -1,3 +1,10 @@
+// Description:
+//   Commands for xkcd
+//
+// Commands:
+//   hubot xkcd - posts the title, image, and alt text for a random xkcd comic
+//   hubot xkcd <number> - posts the title, image, and alt text for a specific xkcd comic
+
 var http = require('http');
 
 module.exports = function(robot) {

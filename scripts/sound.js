@@ -1,3 +1,9 @@
+// Description:
+//   Commands for Soundcloud
+//
+// Commands:
+//   hubot soundcloud <query> - prints a Soundcloud url that best matches the query
+
 var http = require('http');
 
 module.exports = function(robot) {
@@ -11,7 +17,7 @@ module.exports = function(robot) {
         };
 
         body = "";
-        
+
         http.get(options, function(res) {
             res.on('data', function(chunk) {
                 body += chunk;
@@ -19,7 +25,7 @@ module.exports = function(robot) {
 
             res.on('end', function() {
                 body = JSON.parse(body);
-                
+
                 if (!body.length){
                     return msg.send("I didn't find any sounds for \""+query+"\"...");
                 }
