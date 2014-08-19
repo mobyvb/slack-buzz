@@ -1,3 +1,9 @@
+// Description:
+//   Commands for Urban Dictionary
+//
+// Commands:
+//   hubot urbandict <term> - prints the top rated Urbandict definition and example for a term
+
 var http = require('http');
 
 module.exports = function(robot) {

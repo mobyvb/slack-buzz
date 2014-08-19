@@ -1,3 +1,13 @@
+// Description:
+//   Commands for movie list
+//
+// Commands:
+//   hubot list movies - prints out a list of movies that have been added to the list
+//   hubot add movie <movie> - adds a movie to the list
+//   hubot remove movie <movie> - removes a movie from the list
+//   hubot check movie <movie> - checks movie off the list
+//   hubot uncheck movie <movie> - unchecks movie
+
 var mongoose = require('mongoose');
 var uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/test';
 mongoose.connect(uristring);

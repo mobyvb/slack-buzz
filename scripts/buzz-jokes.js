@@ -1,3 +1,10 @@
+// Description:
+//   Commands for jokes
+//
+// Commands:
+//   hubot tell me a joke - tells a joke
+//   hubot don't tell me a joke - tells an antijoke
+
 module.exports = function(robot) {
 
   robot.respond(/tell me a joke/i, function(msg) {

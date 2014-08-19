@@ -1,3 +1,9 @@
+// Description:
+//   Commands for Wikipedia
+//
+// Commands:
+//   hubot wiki <query> - finds an article from Wikipedia based on the query and posts the first paragraph
+
 var wikipedia = require("wikipedia-js");
 var S = require('string');
 

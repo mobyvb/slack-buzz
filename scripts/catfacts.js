@@ -1,3 +1,9 @@
+// Description:
+//   Commands for catfacts
+//
+// Commands:
+//   hubot catfacts - displays a random catfact
+
 var http = require('http');
 
 module.exports = function(robot) {

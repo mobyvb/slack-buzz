@@ -1,3 +1,6 @@
+// Description:
+//   Commands for Reddit
+
 var http = require('http');
 var parser = require('xml2js').Parser();
 
